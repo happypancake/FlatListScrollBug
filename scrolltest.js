@@ -48,6 +48,7 @@ export default class ScrollTest extends Component {
     if (this.state.listType === 0) {
       list = (
         <FlatList
+          ref={l => this.flatList = l}
           data={listItems}
           keyExtractor={l => l.number}
           renderItem={renderItem}
@@ -103,6 +104,12 @@ export default class ScrollTest extends Component {
           >
             <Text style={styles.buttonText}>Nothing</Text>
           </TouchableOpacity>
+          {this.state.listType === 0 && (<TouchableOpacity
+            style={styles.button}
+            onPress={() => this.flatList.scrollToOffset({ animated: true, offset: 50000})}
+          >
+            <Text style={styles.buttonText}>Scroll</Text>
+          </TouchableOpacity>)}
         </View>
        </View>
      );
@@ -139,9 +146,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   listItem:{
-    padding: 20,
+    padding: 5,
     borderRadius: 5,
     backgroundColor: '#eeccee',
-    marginVertical: 5,
+    marginVertical: 3,
   },
 });
